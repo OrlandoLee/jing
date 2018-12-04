@@ -17,8 +17,10 @@
       <view class='channel-list'>
         <view class='single-list' wx:for='{{taylor -2}}'>
           <view style='position: relative;'>
-            <image src='/images/timg.jpg'></image>
-            <image style='position:absolute; height:50rpx; width:50rpx; bottom:10rpx; right:10rpx;' src='/images/svg/play-circle.svg'></image>
+            <view class='song-info' data-page='list' bindtap='goPage'>
+              <image src='/images/timg.jpg'></image>
+              <image style='position:absolute; height:50rpx; width:50rpx; bottom:10rpx; right:10rpx;' src='/images/svg/play-circle.svg'></image>
+            </view>
           </view>
           <text>Taylor Swift - 流行乡村音乐女歌手</text>
         </view>
