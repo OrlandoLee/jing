@@ -34,6 +34,13 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    hotestList: null,
+    latestList: null,
+    hotestListPage: 2,
+    isLoadAllHot: false,
+    latestListPage: 2,
+    isLoadAllNew: false,
+    banner_list: null,
   }
 })
