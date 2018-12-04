@@ -1,11 +1,11 @@
 /**app.wxss**/
-@import 'weui.wxss';
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
+
+page{
+    margin: 0rpx;
+    padding: 0rpx;
+    color: #555;
+    font: 32rpx/1.5 FZLTXIHJW--GB1-0,"hiragino sans gb","Helvetica Neue",Helvetica,STHeiTi,Arial,sans-serif;
+    background: #fafafa;
+    height: 100%;
+    width: 100%;
+}

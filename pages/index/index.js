@@ -3,53 +3,77 @@
 const app = getApp()
 
 Page({
-  data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    grids: [0, 1, 2, 3, 4, 5, 6, 7, 8]
-  },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
-  },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
+    data: {
+        // 站点下标
+        index: 0,
+        sites: ['酷狗音乐', '网易云音乐', 'QQ音乐', '酷我音乐', '百度音乐', '虾米音乐'],
+        sites_en: ['kugou', 'netease', 'qqmusic', 'kuwo', 'baidu', 'xiami'],
+        sites_theme: ['#404040', '#EA2000', '#0FAE53', '#F0BA42', '#0AD5C6', '#FF5E00'],
+
+        currentTab: 0,
+        controlShow: true,
+
+        taylor: 5,
+
+        keyword: '',
+        searchInputFocus: false,
+        results: ['a', 'b', 'c'],
+        songs: 20,
+        lyric: ['We were both young when I first saw you',
+                'I closed my eyes and flashback starts',
+                'I am standing there',
+                'On a balcony in summer air',
+                'See the light see the paty the ...'],
+        musicPlaying: false
+    },
+    onLoad: function(e) {
+        // wx.navigateTo({
+        //     url: '/pages/play/play',
+        // })
+    },
+    goPage: function(e) {
+        var page = e.currentTarget.dataset.page;
+        wx.navigateTo({
+            url: '/pages/' + page + '/' + page +'?data=' + JSON.stringify(this.data),
         })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+    },
+    switchTab: function(e) {
+        this.setData({
+            currentTab: e.detail.current
+        });
+    },
+    onSiteChange: function(e) {
+        console.log("Changing site.. " + e.detail.value);
+        this.setData({
+            index: e.detail.value
+        });
+        wx.setNavigationBarColor({
+            frontColor: '#ffffff',
+            backgroundColor: this.data.sites_theme[e.detail.value],
+        });
+    },
+    onSearchFocus: function(e) {
+        console.log("Input focus..");
+        this.setData({
+            searchCancelShow: true
+        });
+    },
+    onSearchInput: function(e) {
+        console.log("Searching.. " + e.detail.value);
+        this.setData({
+            keyword: e.detail.value
+        });
+    },
+    onSearchClear: function(e) {
+        console.log("Clearing search..");
+        this.setData({
+            keyword: '',
+            searchInputFocus: true
+        });
+    },
+    playSong: function(e) {
+        this.setData({
+            musicPlaying: !this.data.musicPlaying
+        });
     }
-  },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
 })
